@@ -1,5 +1,8 @@
 package com.loeaf.common;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 import java.util.List;
 
 /**
@@ -27,6 +30,8 @@ public interface CRUDInterface<T> {
      * @return
      */
     List<T> findAllById(Long id);
+
+    Page<T> findAllByPage(Pageable pageable);
 
     /**
      * 식별자에 대한 VO가 있는지 찾습니다

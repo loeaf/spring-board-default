@@ -9,6 +9,8 @@ import com.loeaf.siginin.service.UserService;
 import com.loeaf.siginin.types.Authority;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -45,6 +47,11 @@ public class UserServiceImpl extends UserService {
         ArrayList<User> result = new ArrayList<>();
         this.userRepository.findAll().forEach(result::add);
         return result;
+    }
+
+    @Override
+    public Page<User> findAllByPage(Pageable pageable) {
+        return this.userRepository.findAll(pageable);
     }
 
     @Override

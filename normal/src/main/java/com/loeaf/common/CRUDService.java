@@ -1,7 +1,9 @@
 package com.loeaf.common;
 
 
+import com.loeaf.board.types.PageSize;
 import com.loeaf.siginin.exception.DuplicateDataException;
+import org.springframework.data.domain.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +26,19 @@ public abstract class CRUDService<T extends Domain> implements CRUDInterface<T> 
             return save(vo);
         }
     }
+
+    /**
+     * Paging을 위한 FindAll
+     * @param startPage
+     * @return
+     */
+    public Page<T> findAllPgByStartPg(Integer startPage, Integer contentsSize) {
+        PageRequest pageRequest =
+                PageRequest.of(startPage,
+                        contentsSize, Sort.Direction.DESC, "id");
+        return this.findAllByPage(pageRequest);
+    }
+
     /**
      *  식별자가 존재하는지 확인 후 저장합니다
      * @param vo
@@ -59,10 +74,20 @@ public abstract class CRUDService<T extends Domain> implements CRUDInterface<T> 
         vos.forEach(p -> deleteByVo(p));
     }
 
+    /**
+     *
+     * @param vo
+     * @return
+     */
     public T update(T vo) {
         return save(vo);
     }
 
+    /**
+     *
+     * @param vos
+     * @return
+     */
     public List<T> updateAll(List<T> vos) {
         vos.forEach(p -> save(p));
         return vos;
