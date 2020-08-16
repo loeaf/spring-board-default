@@ -48,24 +48,26 @@ public class BoardController {
         return "content";
     }
 
-    @PostMapping("/board")
+    @PostMapping("/boards")
     public String addNotice(@Valid @ModelAttribute BoardForm boardForm) {
-        boardForm2Board(boardForm);
-        return "redirect:/notices";
+        var vo = boardForm2Board(boardForm);
+        this.boardService.save(vo);
+        return "redirect:/boards";
     }
 
     @DeleteMapping("/board/{id}")
     public String deleteNotice(@PathVariable(value = "id") Long id) {
         boardService.deleteAllById(id);
-        return "redirect:/notices";
+        return "redirect:/boards";
     }
 
-    @PutMapping("/board")
+    @PutMapping("/boards")
     public String modifyNotice(@Valid @ModelAttribute BoardForm boardForm) {
+        // ???
         Board board = new Board();
         board.setTitle(boardForm.getTitle());
         boardService.update(board);
-        return "redirect:/notices";
+        return "redirect:/board";
     }
 
     @GetMapping("/edit")
@@ -75,23 +77,22 @@ public class BoardController {
 
     @GetMapping("/edit/{id}")
     public String getEditForm(@PathVariable(value = "id") Long id, Model model) {
-//        Notice notice = noticeService.getNotice(id);
-//        model.addAttribute("notice", notice);
+        Board board = boardService.findOneById(id);
+        model.addAttribute("board", board);
         return "edit";
     }
 
     private Board boardForm2Board(BoardForm boardForm) {
         BoardContent boardContent = boardContentsService.save(
                 BoardContent.builder().content(boardForm.getContent()).build());
-        CustomUserInfo customUserInfo = UserInfoUtil.get();
-
-        User user = userService.findByUk(User.builder().email(customUserInfo.getEmail()).build());
-
-        return Board.builder()
+        User user = UserInfoUtil.getMyUserObj();
+        var board = Board.builder()
                 .title(boardForm.getTitle())
                 .boardContent(boardContent)
                 .user(user)
-                .build();
+                .build();;
+
+        return board;
     }
 
 

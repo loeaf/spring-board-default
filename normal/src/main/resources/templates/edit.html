@@ -4,10 +4,10 @@
     <th:block th:insert="fragments/head :: common"></th:block>
     <title>글 작성하기</title>
 </head>
-<body th:with="isPost=${board} == null ? true : false">
+<body th:with="isPost=${boards} == null ? true : false">
 
 <div style="padding:50px 0px">
-    <form th:method="${isPost} ? 'POST' : 'PUT'" th:action="@{/board}" class="ui form">
+    <form th:method="${isPost} ? 'POST' : 'PUT'" th:action="@{/boards}" class="ui form">
         <div class="ten wide column ui segment">
 
             <div class="ui equal width form">
