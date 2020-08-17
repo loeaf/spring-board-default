@@ -1,4 +1,4 @@
-package com.loeaf.board.types;
+package com.loeaf.common;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

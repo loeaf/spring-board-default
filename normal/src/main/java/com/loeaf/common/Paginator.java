@@ -1,11 +1,6 @@
-package com.loeaf.board.util;
+package com.loeaf.common;
 
-import com.loeaf.board.model.PaginatorInfo;
-import com.loeaf.board.types.PageSize;
 import org.springframework.data.domain.Page;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public final class Paginator {
     public static PaginatorInfo getPagenatorMap(Page<?> page, PageSize pageSize) {

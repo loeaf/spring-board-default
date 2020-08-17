@@ -1,4 +1,4 @@
-package com.loeaf.board.model;
+package com.loeaf.common;
 
 import lombok.Data;
 

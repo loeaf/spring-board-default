@@ -1,7 +1,6 @@
 package com.loeaf.common;
 
 
-import com.loeaf.board.types.PageSize;
 import com.loeaf.siginin.exception.DuplicateDataException;
 import org.springframework.data.domain.*;
 
