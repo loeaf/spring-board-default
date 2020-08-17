@@ -33,7 +33,7 @@ public class BoardServiceImpl extends BoardService {
     @Override
     public List<Board> findAllById(Long id) {
         ArrayList<Board> result = new ArrayList<>();
-        this.boardRepository.findAll().forEach(result::add);
+        this.boardRepository.findAllById(id).forEach(result::add);
         return result;
     }
 

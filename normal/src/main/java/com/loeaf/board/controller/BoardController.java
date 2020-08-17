@@ -27,7 +27,7 @@ public class BoardController {
     private final BoardContentsService boardContentsService;
     private final UserService userService;
 
-    @GetMapping("/boards")
+    @GetMapping("/board")
     public String getNoticePage(
             @RequestParam(value = "page", defaultValue = "1") Integer page,
             Model model) {
@@ -38,30 +38,30 @@ public class BoardController {
         PaginatorInfo pageNav = Paginator.getPagenatorMap(noticePage, PageSize.NOTICE);
         model.addAttribute("pageInfo", pageNav);
 
-        return "boards";
+        return "board";
     }
 
-    @GetMapping("/boards/{id}")
+    @GetMapping("/board/{id}")
     public String getNotice(@PathVariable(value = "id") Long id, Model model) {
         Board board = boardService.findOneById(id);
         model.addAttribute("board", board);
         return "content";
     }
 
-    @PostMapping("/boards")
+    @PostMapping("/board")
     public String addNotice(@Valid @ModelAttribute BoardForm boardForm) {
         var vo = boardForm2Board(boardForm);
         this.boardService.save(vo);
-        return "redirect:/boards";
+        return "redirect:/board";
     }
 
     @DeleteMapping("/board/{id}")
     public String deleteNotice(@PathVariable(value = "id") Long id) {
         boardService.deleteAllById(id);
-        return "redirect:/boards";
+        return "redirect:/board";
     }
 
-    @PutMapping("/boards")
+    @PutMapping("/board")
     public String modifyNotice(@Valid @ModelAttribute BoardForm boardForm) {
         // ???
         Board board = new Board();

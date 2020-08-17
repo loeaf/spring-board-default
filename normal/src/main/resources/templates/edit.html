@@ -4,33 +4,28 @@
     <th:block th:insert="fragments/head :: common"></th:block>
     <title>글 작성하기</title>
 </head>
-<body th:with="isPost=${boards} == null ? true : false">
+<body class="ui gird" th:with="isPost=${board} == null ? true : false">
 
-<div style="padding:50px 0px">
-    <form th:method="${isPost} ? 'POST' : 'PUT'" th:action="@{/boards}" class="ui form">
-        <div class="ten wide column ui segment">
-
-            <div class="ui equal width form">
-                <div class="field">
-                    <label>제목</label>
-                    <input type="text" name="title" placeholder="제목을 입력해주세요."
-                           th:value="${isPost} ? '' : ${board.title}"
-                           required>
-                </div>
-                <div class="field">
-                    <label>내용</label>
-                    <textarea type="text" name="content" th:text="${isPost} ? '' : ${board.boardContent.content}"
-                              required></textarea>
-                </div>
-                <input type="hidden" name="id" th:value="${isPost} ? '' : ${board.id}"/>
-            </div>
+<div class="ui container twelve wide column" style="padding:50px 0px">
+    <form th:method="${isPost} ? 'POST' : 'PUT'" th:action="@{/board}" class="ui form">
+        <div>
+            <label>제목</label>
+            <input type="text" name="title" placeholder="제목을 입력해주세요."
+                   th:value="${isPost} ? '' : ${board.title}"
+                   required>
         </div>
         <div>
-            <button type="submit" class="right floated ui primary button">
+            <label>내용</label>
+            <textarea type="text" name="content" th:text="${isPost} ? '' : ${board.boardContent.content}"
+                      required></textarea>
+        </div>
+        <input type="hidden" name="id" th:value="${isPost} ? '' : ${board.id}"/>
+        <div>
+            <button type="submit">
                 <i class="icon edit"></i>
                 등록
             </button>
-            <button id="back" class="right floated ui button">취소</button>
+            <button id="back">취소</button>
         </div>
     </form>
 </div>
