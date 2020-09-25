@@ -33,6 +33,6 @@
 
 ## Core Coomon Rogic Example
 ![Alt text](./img/pysical-db-model.PNG)   
-DB 구성도
+DB 구성도   
 ![Alt text](./img/crud-repository-use-example.PNG)   
 - common Package에 있는 CRUDService를 BoardSrvice에 상속하여 BoardServiceImpl과 같이 구현해서 사용
