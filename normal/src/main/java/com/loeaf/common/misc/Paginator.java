@@ -1,10 +1,10 @@
-package com.loeaf.common;
+package com.loeaf.common.misc;
 
 import org.springframework.data.domain.Page;
 
 public final class Paginator {
-    public static PaginatorInfo getPagenatorMap(Page<?> page, PageSize pageSize) {
-        Integer pageNavCount = pageSize.getPageNavCount();
+    public static PaginatorInfo getPaginatorMap(Page<?> page, PageSize DSPageSize) {
+        Integer pageNavCount = DSPageSize.getPageNavCount();
         Integer pageNumber = page.getNumber();
 
         Integer startPageNum = calcStartPageNum(pageNavCount, pageNumber);

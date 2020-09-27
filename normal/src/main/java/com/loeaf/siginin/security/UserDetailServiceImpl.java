@@ -4,6 +4,7 @@ import com.loeaf.siginin.domain.Role;
 import com.loeaf.siginin.domain.User;
 import com.loeaf.siginin.service.UserService;
 import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -12,6 +13,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -22,8 +24,19 @@ public class UserDetailServiceImpl implements UserDetailsService {
 
     @Override
     @Transactional(readOnly = true)
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        User user = userService.findByUk(User.builder().email(email).build());
+    public UserDetails loadUserByUsername(String email) {
+        var userDomain = User.builder().email(email).build();
+        //보강
+        User user = null;
+        try {
+            user = userService.findByBizKey(userDomain);
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        }
         if (user == null) {
             throw new UsernameNotFoundException(email + " is not found");
         }

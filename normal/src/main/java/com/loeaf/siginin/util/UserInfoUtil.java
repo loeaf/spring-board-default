@@ -39,7 +39,7 @@ public class UserInfoUtil {
      */
     public static User getMyUserObj() {
         CustomUserInfo userDetails = (CustomUserInfo) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        var p = userService.findOneById(userDetails.getId());
+        var p = userService.findById(userDetails.getId());
         return p;
     }
 }

@@ -1,6 +1,6 @@
 package com.loeaf.siginin.domain;
 
-import com.loeaf.common.Domain;
+import com.loeaf.common.domain.Domain;
 import com.loeaf.siginin.types.Authority;
 import lombok.*;
 

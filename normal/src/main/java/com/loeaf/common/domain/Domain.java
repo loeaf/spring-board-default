@@ -1,7 +1,9 @@
-package com.loeaf.common;
+package com.loeaf.common.domain;
 
-
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -13,8 +15,7 @@ import java.util.Date;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode(of="id")
-public abstract class Domain {
+public class Domain {
     /**
      * 안녕 아이디
      */

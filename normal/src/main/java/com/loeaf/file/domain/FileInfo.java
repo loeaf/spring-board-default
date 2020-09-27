@@ -1,7 +1,8 @@
 package com.loeaf.file.domain;
 
-import com.loeaf.common.Domain;
-import com.loeaf.common.Action;
+import com.loeaf.common.domain.Domain;
+import com.loeaf.common.misc.Action;
+import com.loeaf.file.domain.listener.FileInfoListener;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,7 +17,7 @@ import javax.validation.constraints.NotNull;
  * id, cityPlanId
  */
 @Entity
-//@EntityListeners(Fileinfo)
+@EntityListeners(FileInfoListener.class)
 @Table(name="file_info")
 @Getter
 @Setter

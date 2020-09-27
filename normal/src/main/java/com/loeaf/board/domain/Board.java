@@ -1,6 +1,6 @@
 package com.loeaf.board.domain;
 
-import com.loeaf.common.Domain;
+import com.loeaf.common.domain.Domain;
 import com.loeaf.siginin.domain.User;
 import lombok.*;
 import org.hibernate.annotations.OnDelete;

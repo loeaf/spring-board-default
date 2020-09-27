@@ -1,4 +1,4 @@
-package com.loeaf.common;
+package com.loeaf.common.misc;
 
 import lombok.Data;
 

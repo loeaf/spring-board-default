@@ -1,6 +1,6 @@
 package com.loeaf.board.domain;
 
-import com.loeaf.common.Domain;
+import com.loeaf.common.domain.Domain;
 import lombok.*;
 
 import javax.persistence.*;

@@ -1,5 +1,9 @@
 package com.loeaf.siginin.service.impl;
 
+import com.loeaf.board.domain.Board;
+import com.loeaf.board.repository.BoardRepository;
+import com.loeaf.board.service.BoardService;
+import com.loeaf.common.misc.ServiceImpl;
 import com.loeaf.siginin.domain.Role;
 import com.loeaf.siginin.domain.User;
 import com.loeaf.siginin.exception.DuplicateDataException;
@@ -21,57 +25,20 @@ import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
-public class UserServiceImpl extends UserService {
-    private final UserRepository userRepository;
-    private final RoleRepository roleRepository;
-    private final PasswordEncoder passwordEncoder;
+public class UserServiceImpl
+        extends ServiceImpl<UserRepository, User, Long>
+        implements UserService {
+    final UserRepository userRepository;
+    final RoleRepository roleRepository;
+    final PasswordEncoder passwordEncoder;
 
-    @Override
+
     public User save(User user) {
         checkDuplication(user);
         encodePassword(user);
         setRoles(user);
 
-        return this.userRepository.save(user);
-    }
-
-    @Override
-    public List<User> findAll() {
-        ArrayList<User> result = new ArrayList<>();
-        this.userRepository.findAll().forEach(result::add);
-        return result;
-    }
-
-    @Override
-    public List<User> findAllById(Long id) {
-        ArrayList<User> result = new ArrayList<>();
-        this.userRepository.findAll().forEach(result::add);
-        return result;
-    }
-
-    @Override
-    public Page<User> findAllByPage(Pageable pageable) {
-        return this.userRepository.findAll(pageable);
-    }
-
-    @Override
-    public boolean existVoByUk(User vo) {
-        return this.userRepository.existsByEmail(vo.getEmail());
-    }
-
-    @Override
-    public User findByUk(User vo) {
-        return this.userRepository.findUserByEmail(vo.getEmail());
-    }
-
-    @Override
-    public List<User> findAllByUk(User vo) {
-        return null;
-    }
-
-    @Override
-    public void deleteByVo(User vo) {
-        this.userRepository.delete(vo);
+        return this.regist(user);
     }
 
     private void checkDuplication(User user) {

@@ -1,7 +1,7 @@
 package com.loeaf.board.service;
 
 import com.loeaf.board.domain.Board;
-import com.loeaf.common.CRUDService;
+import com.loeaf.common.misc.Service;
 
-public abstract class BoardService extends CRUDService<Board> {
+public interface BoardService extends Service<Board, Long> {
 }

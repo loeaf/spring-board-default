@@ -1,6 +1,7 @@
 package com.loeaf.siginin.domain;
 
-import com.loeaf.common.Domain;
+import com.loeaf.common.domain.Domain;
+import com.loeaf.common.misc.BizField;
 import lombok.*;
 
 import javax.persistence.*;
@@ -15,6 +16,7 @@ import java.util.Set;
 @AllArgsConstructor
 public class User extends Domain {
     @Column(length = 50, nullable = false, unique = true)
+    @BizField(bizKey = true, order = 0)
     private String email;
 
     @Column(nullable = false)

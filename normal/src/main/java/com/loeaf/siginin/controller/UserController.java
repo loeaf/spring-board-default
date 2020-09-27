@@ -4,6 +4,8 @@ import com.loeaf.siginin.domain.User;
 import com.loeaf.siginin.model.UserForm;
 import com.loeaf.siginin.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.io.input.ObservableInputStream;
+import org.hibernate.EntityMode;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
+import java.util.Observable;
 
 @Controller
 @RequestMapping("/users")
@@ -25,6 +28,7 @@ public class UserController {
 
     @PostMapping
     public String signUp(@Valid @ModelAttribute UserForm userForm) {
+
         userService.save(convertFormToUser(userForm));
         return "redirect:/login";
     }
