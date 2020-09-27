@@ -2,22 +2,23 @@ package com.loeaf.board.service.impl;
 
 import com.loeaf.board.domain.Board;
 import com.loeaf.board.domain.BoardContent;
-import com.loeaf.board.repository.BoardContentsRepository;
-import com.loeaf.board.repository.BoardRepository;
+import com.loeaf.board.repository.BoardContentRepository;
 import com.loeaf.board.service.BoardContentService;
-import com.loeaf.board.service.BoardService;
 import com.loeaf.common.misc.ServiceImpl;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
+import javax.annotation.PostConstruct;
 
 @Service
 @RequiredArgsConstructor
 public class BoardContentServiceImpl
-        extends ServiceImpl<BoardContentsRepository, BoardContent, Long>
+        extends ServiceImpl<BoardContentRepository, BoardContent, Long>
         implements BoardContentService {
+    private final BoardContentRepository jpaRepo;
+
+    @PostConstruct
+    private void init() {
+        super.set(jpaRepo, new BoardContent());
+    }
 }

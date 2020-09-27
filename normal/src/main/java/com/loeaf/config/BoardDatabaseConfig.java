@@ -76,8 +76,8 @@ public class BoardDatabaseConfig {
         sqlSessionFactoryBean.setDataSource(dataSource);
 
         //
-        sqlSessionFactoryBean.setMapperLocations(context.getResources("classpath*:mybatis/com/loeaf/**/*.xml"));
-        sqlSessionFactoryBean.setConfigLocation(new PathMatchingResourcePatternResolver().getResource("mybatis-config.xml"));
+        sqlSessionFactoryBean.setMapperLocations(context.getResources("classpath*:mybatis/**/*.xml"));
+//        sqlSessionFactoryBean.setConfigLocation(new PathMatchingResourcePatternResolver().getResource("mybatis-config.xml"));
 
 
         //

@@ -1,6 +1,7 @@
 package com.loeaf.board.domain;
 
 import com.loeaf.common.domain.Domain;
+import com.loeaf.common.misc.BizField;
 import com.loeaf.siginin.domain.User;
 import lombok.*;
 import org.hibernate.annotations.OnDelete;
@@ -18,6 +19,7 @@ import javax.persistence.*;
 public class Board extends Domain {
 
     @Column(length = 100, nullable = false)
+    @BizField
     private String title;
 
     @ManyToOne(fetch = FetchType.LAZY)

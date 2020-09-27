@@ -24,7 +24,6 @@ import javax.validation.Valid;
 public class BoardController {
     private final BoardService boardService;
     private final BoardContentService boardContentService;
-    private final UserService userService;
 
     @GetMapping("/board")
     public String getNoticePage(

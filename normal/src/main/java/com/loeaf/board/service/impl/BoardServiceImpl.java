@@ -11,6 +11,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,4 +20,10 @@ import java.util.List;
 public class BoardServiceImpl
         extends ServiceImpl<BoardRepository, Board, Long>
         implements BoardService {
+    private final BoardRepository jpaRepo;
+
+    @PostConstruct
+    private void init() {
+        super.set(jpaRepo, new Board());
+    }
 }

@@ -137,21 +137,22 @@ public  class ServiceImpl<JPA, DOMAIN, IDTYPE> implements Service<DOMAIN, IDTYPE
 		Object[] paramValues = getParamValues(bizFields, domain);
 		
 		//
-		if(existsMethod(methodName)) {
+		boolean method = existsMethod(methodName);
+		if(method) {
 			//메소드 실행
 			Object obj = this.jpaRepo
 					.getClass()
 					.getMethod(methodName, paramTypes)
 					.invoke(this.jpaRepo, paramValues);
-			
+
 			//
 			log.debug("<<.findByBizKey - {}", obj);
 			return (DOMAIN)obj;
-			
+
 		}else {
 			return findByBizKeyByCreateQuery(bizFields, paramValues);
 		}
-		
+
 
 	}
 
@@ -367,6 +368,9 @@ public  class ServiceImpl<JPA, DOMAIN, IDTYPE> implements Service<DOMAIN, IDTYPE
 	 * @return
 	 */
 	private boolean existsMethod(String methodName) {
+		if(this.jpaRepo == null) {
+			throw new RuntimeException("jpa repository is null");
+		}
 		Method[] methods = this.jpaRepo.getClass().getMethods();
 		if(Utils.isEmpty(methods)) {
 			return false;

@@ -9,6 +9,7 @@ import com.loeaf.siginin.domain.User;
 import com.loeaf.siginin.exception.DuplicateDataException;
 import com.loeaf.siginin.repository.RoleRepository;
 import com.loeaf.siginin.repository.UserRepository;
+import com.loeaf.siginin.service.RoleService;
 import com.loeaf.siginin.service.UserService;
 import com.loeaf.siginin.types.Authority;
 import lombok.RequiredArgsConstructor;
@@ -18,6 +19,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -28,37 +30,14 @@ import java.util.Set;
 public class UserServiceImpl
         extends ServiceImpl<UserRepository, User, Long>
         implements UserService {
-    final UserRepository userRepository;
-    final RoleRepository roleRepository;
-    final PasswordEncoder passwordEncoder;
+    private final UserRepository userRepository;
 
-
-    public User save(User user) {
-        checkDuplication(user);
-        encodePassword(user);
-        setRoles(user);
-
-        return this.regist(user);
+    @PostConstruct
+    private void init() {
+        super.set(userRepository, new User());
     }
-
-    private void checkDuplication(User user) {
-        var existsEmail = userRepository.existsByEmail(user.getEmail());
-        if (existsEmail) {
-            throw new DuplicateDataException(user.getEmail());
-        }
-        var existsNick = userRepository.existsByNickName(user.getNickName());
-        if (existsNick) {
-            throw new DuplicateDataException(user.getEmail());
-        }
-    }
-
-    private void encodePassword(User user) {
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-    }
-
-    private void setRoles(User user) {
-        Set<Role> roles = new HashSet<>();
-        roles.add(roleRepository.findRoleByAuthority(Authority.USER));
-        user.setRoles(roles);
+    @Override
+    public Boolean findByNickName(String nickName) {
+        return userRepository.findByNickName(nickName);
     }
 }
