@@ -31,11 +31,11 @@
 - siginin : 로그인, 회원가입, 권한, 보안
 
 ## Core Coomon Rogic Example
-![Alt text](./img/domain.PNG)   
+![Alt text](../img/domain.PNG)   
 객체 설계시 RDB에서 유일성 보장을 위한 본질 식별자를 Bizkey Annotation을 통해 지정해 준다    
-![Alt text](./img/service.PNG)   
+![Alt text](../img/service.PNG)   
 인터페이스에서 service를 상속받는다
-![Alt text](./img/serviceImpl.PNG)   
+![Alt text](../img/serviceImpl.PNG)   
 serviceImpl에서 serviceImpl을 상속받고 해당 Service를 구현 후 추상 Service에 객체 주입 
 
 
