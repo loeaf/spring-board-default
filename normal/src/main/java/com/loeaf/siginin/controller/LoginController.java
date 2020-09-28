@@ -12,6 +12,6 @@ import javax.servlet.http.HttpServletRequest;
 public class LoginController {
     @GetMapping
     public String getLoginForm() {
-        return "login";
+        return "/login";
     }
 }
