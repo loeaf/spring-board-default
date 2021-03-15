@@ -18,9 +18,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-
 @Controller
 @RequiredArgsConstructor
+
 public class BoardController {
     private final BoardService boardService;
     private final BoardContentService boardContentService;
