@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 지구계획 파일 처리 서비스
+ * 파일 처리 서비스
  * @author break8524
  */
 @Service

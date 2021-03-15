@@ -3,27 +3,38 @@ package com.loeaf.board.controller;
 import com.loeaf.board.domain.Board;
 import com.loeaf.board.domain.BoardContent;
 import com.loeaf.board.model.BoardForm;
+import com.loeaf.board.model.SampleCsv;
 import com.loeaf.board.service.BoardContentService;
 import com.loeaf.board.service.BoardService;
+import com.loeaf.board.service.SampleCsvParserService;
 import com.loeaf.common.misc.PageSize;
 import com.loeaf.common.misc.Paginator;
 import com.loeaf.common.misc.PaginatorInfo;
+import com.loeaf.file.domain.FileInfo;
+import com.loeaf.file.service.FileInfoService;
 import com.loeaf.siginin.domain.User;
 import com.loeaf.siginin.service.UserService;
 import com.loeaf.siginin.util.UserInfoUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.io.File;
+import java.io.IOException;
+import java.util.List;
+
 @Controller
 @RequiredArgsConstructor
 
 public class BoardController {
     private final BoardService boardService;
     private final BoardContentService boardContentService;
+    private final SampleCsvParserService sampleCsvParserService;
+    private final FileInfoService fileInfoService;
 
     @GetMapping("/board")
     public String getNoticePage(
@@ -81,6 +92,11 @@ public class BoardController {
         return "edit";
     }
 
+    /**
+     * 게시판에의 Form 정보를 파일이 포함되지 않은 기본적인 Board 테이블에 매핑하기 위한 자료를 생성합니다.
+     * @param boardForm
+     * @return
+     */
     private Board boardForm2Board(BoardForm boardForm) {
         BoardContent boardContent = boardContentService.regist(
                 BoardContent.builder().content(boardForm.getContent()).build());
@@ -90,8 +106,36 @@ public class BoardController {
                 .boardContent(boardContent)
                 .user(user)
                 .build();;
-
         return board;
+    }
+
+    /**
+     * 파일에 있는 내부 데이터 파싱
+     * @param fileInfos
+     */
+    @Transactional
+    public void procAddCPFile(List<FileInfo> fileInfos) {
+        List<SampleCsv> csvFileDatas = null;
+        try {
+            for (FileInfo fileInfo : fileInfos) {
+                var cpFileInfoObj = registFile(fileInfo);
+                registFileData(csvFileDatas, fileInfo);
+                // service에서 samplecsv 데이터를 regist All regist 하는거 한방!
+            }
+        } catch (Exception e) {
+            fileInfos.forEach(p -> new File(p.toString()).delete());
+            e.printStackTrace();
+        }
+    }
+
+    private FileInfo registFile(FileInfo fileInfo) {
+        var fileInfoObj = this.fileInfoService.regist(fileInfo);
+        return fileInfoObj;
+    }
+
+    private void registFileData(List<SampleCsv> csvFileDatas, FileInfo fileInfo) throws IOException {
+        csvFileDatas = this.sampleCsvParserService.procParseFile(fileInfo.toString());
+        csvFileDatas.forEach(p -> p.setFileInfo(fileInfo));
     }
 
 
