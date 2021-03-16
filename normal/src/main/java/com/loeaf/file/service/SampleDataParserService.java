@@ -1,8 +1,6 @@
-package com.loeaf.board.service;
+package com.loeaf.file.service;
 
 import com.fasterxml.jackson.databind.exc.InvalidFormatException;
-import com.loeaf.board.model.SampleCsv;
-import javassist.tools.rmi.Sample;
 import org.springframework.util.ResourceUtils;
 
 import java.io.*;
@@ -10,7 +8,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public abstract class SampleCsvParserService implements FileParser {
+public abstract class SampleDataParserService implements FileParser {
     /**
      * 파일을 읽어와 행을 리턴합니다
      * Type ArrayList<List<String>>>
@@ -22,7 +20,7 @@ public abstract class SampleCsvParserService implements FileParser {
      * @throws IOException
      * @throws InvalidFormatException
      */
-    private ArrayList<List<String>> readCsvData(String fileName) throws IOException, InvalidFormatException {
+    private ArrayList<List<String>> readSampleData(String fileName) throws IOException, InvalidFormatException {
         //반환용 리스트
         ArrayList<List<String>> ret = new ArrayList<List<String>>();
         BufferedReader br = null;
@@ -63,7 +61,7 @@ public abstract class SampleCsvParserService implements FileParser {
      * @param parseDatas
      * @return
      */
-    protected abstract List procCsvDataObj(ArrayList<List<String>> parseDatas);
+    protected abstract List procSampleDataObj(ArrayList<List<String>> parseDatas);
 
 
     /**
@@ -75,8 +73,8 @@ public abstract class SampleCsvParserService implements FileParser {
      */
     @Override
     public List procParseFile(String fullFilePath) throws IOException, InvalidFormatException {
-        var p = readCsvData(fullFilePath);
-        var resultCol = procCsvDataObj(p);
+        var p = readSampleData(fullFilePath);
+        var resultCol = procSampleDataObj(p);
         return resultCol;
     }
 }

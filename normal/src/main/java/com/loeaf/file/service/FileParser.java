@@ -1,4 +1,4 @@
-package com.loeaf.board.service;
+package com.loeaf.file.service;
 
 import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 

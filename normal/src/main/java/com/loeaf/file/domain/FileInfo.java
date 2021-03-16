@@ -1,7 +1,7 @@
 package com.loeaf.file.domain;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.loeaf.board.model.SampleCsv;
+import com.loeaf.board.domain.SampleCsv;
 import com.loeaf.common.domain.Domain;
 import com.loeaf.common.misc.Action;
 import com.loeaf.file.domain.listener.FileInfoListener;

@@ -34,6 +34,13 @@ public class MultipartFileMaster {
         this.files = files;
     }
 
+    /**
+     * MultipartFile로 넘어온 객체들을 해당 경로에 저장합니다
+     * @param files MultipartFile 리스트
+     * @param uploadDir 파일이 저장될 경로
+     * @param movDir 파일이 이동될 경로
+     * @return
+     */
     public static List<MultipartFileMaster> saveMultiFile(MultipartFile[] files, String uploadDir, String movDir) {
         String originFileName = "";
         String saveFileName = "";
@@ -104,6 +111,11 @@ public class MultipartFileMaster {
         delete(sourceF.getPath());
     }
 
+    /**
+     * 원본경로에서 타겟 경로로 자료를 복사합니다
+     * @param sourceF
+     * @param targetF
+     */
     public static void copy(File sourceF, File targetF){
         File[] target_file = sourceF.listFiles();
         for (File file : target_file) {
@@ -138,6 +150,10 @@ public class MultipartFileMaster {
         }
     }
 
+    /**
+     * 해다경로에 있는 자료를 삭제합니다
+     * @param path
+     */
     public static void delete(String path) {
         File folder = new File(path);
         try {

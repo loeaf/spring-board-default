@@ -1,7 +1,7 @@
 package com.loeaf.board.service.impl;
 
-import com.loeaf.board.model.SampleCsv;
-import com.loeaf.board.service.SampleCsvParserService;
+import com.loeaf.board.domain.SampleCsv;
+import com.loeaf.file.service.SampleDataParserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -10,9 +10,9 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class SampleCsvParserServiceImpl extends SampleCsvParserService {
+public class SampleDataParserServiceImpl extends SampleDataParserService {
     @Override
-    protected List procCsvDataObj(ArrayList<List<String>> parseDatas) {
+    protected List procSampleDataObj(ArrayList<List<String>> parseDatas) {
         List<SampleCsv> cprds = new ArrayList<>();
         parseDatas.forEach(p -> constructCPRD(p, cprds));
         return cprds;

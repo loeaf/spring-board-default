@@ -1,4 +1,4 @@
-package com.loeaf.board.model;
+package com.loeaf.board.domain;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.loeaf.common.domain.Domain;

@@ -3,17 +3,16 @@ package com.loeaf.board.controller;
 import com.loeaf.board.domain.Board;
 import com.loeaf.board.domain.BoardContent;
 import com.loeaf.board.model.BoardForm;
-import com.loeaf.board.model.SampleCsv;
+import com.loeaf.board.domain.SampleCsv;
 import com.loeaf.board.service.BoardContentService;
 import com.loeaf.board.service.BoardService;
-import com.loeaf.board.service.SampleCsvParserService;
+import com.loeaf.file.service.SampleDataParserService;
 import com.loeaf.common.misc.PageSize;
 import com.loeaf.common.misc.Paginator;
 import com.loeaf.common.misc.PaginatorInfo;
 import com.loeaf.file.domain.FileInfo;
 import com.loeaf.file.service.FileInfoService;
 import com.loeaf.siginin.domain.User;
-import com.loeaf.siginin.service.UserService;
 import com.loeaf.siginin.util.UserInfoUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -32,7 +31,7 @@ import java.util.List;
 public class BoardController {
     private final BoardService boardService;
     private final BoardContentService boardContentService;
-    private final SampleCsvParserService sampleCsvParserService;
+    private final SampleDataParserService sampleDataParserService;
     private final FileInfoService fileInfoService;
 
     @GetMapping("/board")
@@ -132,8 +131,14 @@ public class BoardController {
         return fileInfoObj;
     }
 
+    /**
+     *
+     * @param csvFileDatas
+     * @param fileInfo
+     * @throws IOException
+     */
     private void registFileData(List<SampleCsv> csvFileDatas, FileInfo fileInfo) throws IOException {
-        csvFileDatas = this.sampleCsvParserService.procParseFile(fileInfo.toString());
+        csvFileDatas = this.sampleDataParserService.procParseFile(fileInfo.toString());
         csvFileDatas.forEach(p -> p.setFileInfo(fileInfo));
     }
 
