@@ -1,4 +1,4 @@
-package com.loeaf.board.controller;
+package com.loeaf.board.controller.view;
 
 import com.loeaf.board.domain.Board;
 import com.loeaf.board.domain.BoardContent;

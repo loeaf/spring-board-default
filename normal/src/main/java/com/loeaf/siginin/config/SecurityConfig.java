@@ -24,7 +24,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .authorizeRequests()
                 .antMatchers("/", "/users").permitAll()
-                .antMatchers(HttpMethod.GET,"/boards/**").permitAll()
+                .antMatchers(HttpMethod.GET,"/board/**").permitAll()
+                .antMatchers(HttpMethod.GET,"/boardRest/**").permitAll()
                 .antMatchers("/edit").hasRole(Authority.USER.name())
                 .anyRequest().authenticated()
                 .and()

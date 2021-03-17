@@ -1,5 +1,6 @@
 package com.loeaf.board.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.loeaf.common.domain.Domain;
 import lombok.*;
 
